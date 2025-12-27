@@ -1,0 +1,39 @@
+[package]
+name = "blink_minimum"
+version = "0.1.0"
+edition = "2024"
+
+[target.thumbv7em-none-eabihf]
+rustflags = [
+  "-C", "link-arg=-Tlink.x", # <--- ESSA LINHA É CRUCIAL
+]
+
+[build]
+target = "thumbv7em-none-eabihf"
+
+[dependencies]
+# Essencial para rodar no metal (Reset handler, stack pointer)
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+
+# Abstração de Hardware para a família G4
+# IMPORTANTE: Escolha a feature correta (ex: stm32g474 ou stm32g431)
+stm32g4xx-hal = { version = "0.0.1", features = ["stm32g474", "rt"] }
+
+# O jeito mais simples de lidar com erros fatais (apenas trava o processador)
+panic-halt = "1.0.0"
+
+# Traits para hardware (digital::v2::OutputPin, etc)
+embedded-hal = "1.0.0"
+cfg-if = "1.0"
+log = "0.4"
+
+
+[features]
+# Feature flags referenced in `src/utils/logger.rs`.
+# Keep them declared so `cfg(feature = "...")` checks are valid.
+default = []
+defmt = []
+log-itm = []
+log-semihost = []
+
