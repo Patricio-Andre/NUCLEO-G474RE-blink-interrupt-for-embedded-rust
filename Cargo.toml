@@ -5,7 +5,7 @@ edition = "2021"
 description = "Uma breve descrição do que sua crate faz (obrigatório)"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/Patricio-Andre/NUCLEO-G474RE-blink-for-embedded-rust" 
-keywords = ["embedded", "stm32", "blink", "stm32g4", "stm32g474", "stm32g474RE", "simple"]
+keywords = ["embedded", "stm32", "blink", "stm32g4", "stm32g474RE"]
 categories = ["embedded", "hardware-support"]
 
 [dependencies]
