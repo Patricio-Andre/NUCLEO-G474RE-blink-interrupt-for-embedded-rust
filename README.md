@@ -8,7 +8,7 @@ canonical project layout, `Cargo.toml`, `.cargo/config.toml`, a `Makefile`, and
 
 Main contents:
 - `src/main.rs` — embedded application (main loop toggling PA5).
-- `src/utils/` — utilities for the example (configurable logger via features).
+- `src/utils/` — utilities for the example (previously included logging helpers).
 - `memory.x` — linker script (Flash/RAM layout).
 - `Makefile` — convenient targets (`build`, `release`, `embed`, `flash`, `clippy`, ...).
 - `.cargo/config.toml` — build/target configuration.
@@ -16,12 +16,8 @@ Main contents:
 ## Quick overview
 
 The crate is configured for the `thumbv7em-none-eabihf` target and uses the
-`stm32g474` feature of `stm32g4xx-hal`. The logging utilities live in
-`src/utils/logger.rs` and choose a backend based on feature flags (`log-itm`,
-`defmt`, `log-semihost`).
-
-Currently the logger backend may require additional configuration or
-dependencies to work; the example as provided simply blinks the LED.
+`stm32g474` feature of `stm32g4xx-hal`. This example focuses on blinking the
+LED and does not depend on any logging backend by default.
 
 ## Prerequisites
 
@@ -114,17 +110,18 @@ make flash    # runs `cargo-flash --chip STM32G474RE --target ... --release`
 make run      # runs `cargo run --release` with runner configured
 ```
 
-## Logging / features
+## Board Manuals and References
 
-- To use ITM / `cortex-m-log`, enable the `log-itm` feature and add the
-  compatible dependencies (see `src/utils/logger.rs`).
-- To use `defmt`, enable the `defmt` feature and add `defmt-rtt` / `panic-probe`
-  as needed.
+- **NUCLEO-G474RE product page**: board documentation and user manuals
+  https://www.st.com/en/evaluation-tools/nucleo-g474re.html
+- **STM32G474RE product page**: device datasheet and technical documents
+  https://www.st.com/en/microcontrollers-microprocessors/stm32g474re.html
+- **STM32G4 series documentation hub**: datasheets and reference manuals
+  https://www.st.com/en/microcontrollers-microprocessors/stm32g4-series.html
 
-Example to build with `log-itm`:
-
-```bash
-cargo build --release --target thumbv7em-none-eabihf --features log-itm
-```
+Use the product pages above to download the latest datasheet and reference
+manuals for the MCU and the Nucleo board. These manuals contain pinouts,
+electrical characteristics, peripheral descriptions, and programming
+guidelines that are helpful when adapting this example to other boards.
 
 

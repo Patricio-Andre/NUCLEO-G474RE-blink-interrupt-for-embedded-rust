@@ -1,54 +1,49 @@
-# Makefile para o projeto blink_minimum (Nucleo G474RE)
-# Alvos úteis para desenvolvimento embarcado com Rust.
+
+# Makefile for the blink_minimum project (Nucleo G474RE)
+# Useful targets for embedded Rust development.
 
 CARGO := cargo
 TARGET := thumbv7em-none-eabihf
 CHIP := STM32G474RE
+PACKAGE := NUCLEO-G474RE-blink-for-embedded-rust
 RELEASE_FLAGS := --release
+TARGET_DIR := target/$(TARGET)
 
 .PHONY: all build release embed flash run clippy fmt doc check test clean
 
 all: build
 
-# Build de desenvolvimento para o target thumbv7em
+# Debug build for the target
 build:
 	$(CARGO) build --target $(TARGET)
 
-# Build em release para o target
+# Release build for the target
 release:
 	$(CARGO) build $(RELEASE_FLAGS) --target $(TARGET)
 
-# Flash usando cargo-embed (requer cargo-embed instalado)
+# Flash using cargo-embed (requires cargo-embed installed)
 embed:
 	cargo embed --chip $(CHIP) $(RELEASE_FLAGS)
 
-# Flash usando cargo-flash (requer cargo-flash instalado)
+# Flash using cargo-flash (requires cargo-flash installed)
 flash:
 	cargo-flash --chip $(CHIP) --target $(TARGET) $(RELEASE_FLAGS)
 
-# Executar com o runner configurado em .cargo/config.toml (probe-run)
-run:
-	$(CARGO) run $(RELEASE_FLAGS)
-
-# Rodar clippy e tratar warnings como erros
+# Run clippy and treat warnings as errors
 clippy:
 	$(CARGO) clippy --all-targets --all-features -- -D warnings
 
-# Formatar código
+# Format code
 fmt:
 	$(CARGO) fmt
 
-# Gerar documentação e abrir no navegador
+# Generate documentation and open in browser (host toolchain)
 doc:
 	$(CARGO) doc --no-deps --open
 
-# Checagem rápida para o target
+# Quick check for the target
 check:
 	$(CARGO) check --target $(TARGET)
-
-# Rodar testes (não aplicável a no_std/embedded, mas incluído para conveniência)
-test:
-	$(CARGO) test
 
 clean:
 	$(CARGO) clean

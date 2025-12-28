@@ -9,28 +9,22 @@ keywords = ["embedded", "stm32", "blink", "stm32g4", "stm32g474RE"]
 categories = ["embedded", "hardware-support"]
 
 [dependencies]
-# Essencial para rodar no metal (Reset handler, stack pointer)
+# Essential for bare-metal (reset handler, stack pointer)
 cortex-m = "0.7"
 cortex-m-rt = "0.7"
 
-# Abstração de Hardware para a família G4
-# IMPORTANTE: Escolha a feature correta (ex: stm32g474 ou stm32g431)
+# Hardware abstraction for the G4 family
+# IMPORTANT: pick the correct feature (e.g. stm32g474 or stm32g431)
 stm32g4xx-hal = { version = "0.0.1", features = ["stm32g474", "rt"] }
 
-# O jeito mais simples de lidar com erros fatais (apenas trava o processador)
+# Simple panic strategy (halts the processor)
 panic-halt = "1.0.0"
 
-# Traits para hardware (digital::v2::OutputPin, etc)
+# Traits for hardware (digital::v2::OutputPin, etc)
 embedded-hal = "1.0.0"
 cfg-if = "1.0"
-log = "0.4"
-
 
 [features]
-# Feature flags referenced in `src/utils/logger.rs`.
-# Keep them declared so `cfg(feature = "...")` checks are valid.
+# Minimal feature set; logging-related feature flags removed.
 default = []
-defmt = []
-log-itm = []
-log-semihost = []
 
