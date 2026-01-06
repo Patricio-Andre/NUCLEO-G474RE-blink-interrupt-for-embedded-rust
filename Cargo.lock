@@ -3,12 +3,13 @@
 version = 4
 
 [[package]]
-name = "NUCLEO-G474RE-blink-for-embedded-rust"
+name = "NUCLEO-G474RE-interrupt-blink-for-embedded-rust"
 version = "0.2.0"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
+ "critical-section",
  "defmt",
  "defmt-rtt",
  "embedded-hal 1.0.0",
