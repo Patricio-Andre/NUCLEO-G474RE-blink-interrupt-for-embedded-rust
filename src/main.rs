@@ -111,7 +111,7 @@ fn main() -> ! {
 
     // Checking the initial value of the Delay using mutex to access a restrict area avoiding concurrency
     cortex_m::interrupt::free(|cs| {
-        defmt::info!("Delay Initial Value: {}", G_DELAYMS.borrow(cs).get());
+        defmt::info!("Delay Initial Value: {} ms", G_DELAYMS.borrow(cs).get());
     });
 
     loop {
